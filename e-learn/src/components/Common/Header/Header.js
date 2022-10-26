@@ -1,11 +1,14 @@
 import React from 'react';
+import { useState } from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Link } from 'react-router-dom';
 import logo from '../../../assets/imgs/e.png'
 import lightmode from '../../../assets/imgs/light.png'
-// import darkmode from '../../../assets/imgs/dark.png'
+import darkmode from '../../../assets/imgs/dark.png'
+import './Header.css'
 const Header = () => {
+    const [mode, setMode] = useState(false)
     return (
         <Navbar bg="light" expand="lg">
             <Container>
@@ -45,7 +48,7 @@ const Header = () => {
                         <LinkContainer to="/signup">
                             <Link className="nav-link btn btn-danger text-white">SignUp</Link>
                         </LinkContainer>
-                        <button className='btn btn-light'><img src={lightmode} alt='Light mode' width={30} /></button>
+                        <button onClick={() => setMode(!mode)} className='btn btn-light'><img src={mode === true ? darkmode : lightmode} alt='Light mode' width={30} /></button>
                     </Nav>
                 </Navbar.Collapse>
             </Container>

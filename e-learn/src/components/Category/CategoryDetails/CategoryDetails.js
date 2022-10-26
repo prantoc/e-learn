@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Card, Col, Container, Row } from 'react-bootstrap';
 import { useLoaderData } from 'react-router-dom';
 import { FaCartPlus, FaCloudDownloadAlt } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 const CategoryDetails = () => {
     const cDetails = useLoaderData(); //cDetails = category details
     const { _id, price, course_name, course_duration, description, topics, picture, course_start } = cDetails;
@@ -21,13 +22,13 @@ const CategoryDetails = () => {
                                     <Card.Title>
                                         What you'll learn
                                     </Card.Title>
-                                    <Card.Text>
+                                    <Card>
                                         <ul>
                                             {
                                                 topics.map((t, i) => <li className='animate__animated animate__headShake text-dark fw-bold' key={i}>{t}</li>)
                                             }
                                         </ul>
-                                    </Card.Text>
+                                    </Card>
 
                                 </Col>
                                 <Col md={3} className="border-start  text-center">
@@ -35,7 +36,7 @@ const CategoryDetails = () => {
                                     <p className='fw-bold my-3'>Course Duration: <span className='text-dark'>{course_duration} months</span></p>
                                     <p className='fw-bold my-3'>Course Will Start: <span className='text-dark'> {course_start}</span></p>
                                     <Button variant='outline-danger' className='animate__animated animate__bounceInDown my-2'>Download Course details <FaCloudDownloadAlt /> </Button>
-                                    <Button className='animate__animated animate__bounceInDown' variant="outline-primary">Get Premium <FaCartPlus /> </Button>
+                                    <Button className='animate__animated animate__bounceInDown' variant="outline-primary"><Link to={`/checkout/${_id}`} className='nav-link'>Get Premium <FaCartPlus /> </Link></Button>
                                 </Col>
                             </Row>
                         </Card.Body>

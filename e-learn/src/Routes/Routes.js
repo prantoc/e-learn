@@ -24,6 +24,11 @@ export const router = createBrowserRouter([
                 element: <CategoryDetails></CategoryDetails>,
                 loader: ({ params }) => fetch(`http://localhost:5000/course/${params.id}`)
             },
+            {
+                path: "/checkout/:id",
+                element: <CategoryDetails></CategoryDetails>,
+                loader: ({ params }) => fetch(`http://localhost:5000/course/${params.id}`)
+            },
         ]
     },
 ]);
