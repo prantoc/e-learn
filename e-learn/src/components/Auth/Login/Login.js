@@ -3,9 +3,11 @@ import { Col, Container, Row } from 'react-bootstrap';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
 import { error, success } from '../../../Toasts/Toasts';
-
+import google from '../../../assets/imgs/google.png'
+import facebook from '../../../assets/imgs/facebook.png'
+import github from '../../../assets/imgs/github.png'
 const Login = () => {
-    const { userSignIn } = useContext(AuthContext);
+    const { userSignIn, signInByGoogle, signInByGithub } = useContext(AuthContext);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     let location = useLocation();
@@ -20,7 +22,7 @@ const Login = () => {
             .then((userCredential) => {
                 // Signed in 
                 const user = userCredential.user;
-                success(`Hi, You Logged in successfully ${user.displayName}`);
+                success(`Hi,${user.displayName}  You Logged in successfully`);
                 setLoading(false)
                 form.reset();
                 if (user.emailVerified) {
@@ -38,6 +40,29 @@ const Login = () => {
                 setLoading(false)
             })
     }
+
+    const githubSignIn = () => {
+        signInByGithub()
+            .then((result) => {
+                const user = result.user;
+                success(`Hi,${user.displayName}  You Logged in successfully`);
+                navigate('/')
+            }).catch((e) => {
+                error(e);
+            });
+    }
+    const googleSignIn = () => {
+        signInByGoogle()
+            .then((result) => {
+                const user = result.user;
+                success(`Hi,${user.displayName}  You Logged in successfully`);
+                navigate('/')
+            }).catch((e) => {
+                error(e);
+            });
+    }
+
+
     return (
         <Container>
             <Row className='my-5'>
@@ -65,6 +90,12 @@ const Login = () => {
                         </button>
                     </form>
                     <div className="form-text text-center p-1">New to E-Learn? <Link to="/signup">Create new Acoount</Link></div>
+                    <hr />
+                    <div className='d-flex justify-content-center mt-3'>
+                        <img className='m-4' role="button" onClick={googleSignIn} src={google} alt='Logo' width={30} />
+                        <img className='m-4' role="button" onClick={githubSignIn} src={github} alt='Logo' width={30} />
+                        <img className='m-4' role="button" onClick={googleSignIn} src={facebook} alt='Logo' width={30} />
+                    </div>
                 </Col>
             </Row>
         </Container>

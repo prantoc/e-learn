@@ -7,7 +7,7 @@ const PrivateRoutes = ({ children }) => {
     const { user, loading } = useContext(AuthContext);
     let location = useLocation();
     if (loading) {
-        return <Spinner className='d-flex justify-content-center mt-5' animation="border" role="status">
+        return <Spinner animation="border" role="status" style={{ margin: 'auto' }}>
             <span className="visually-hidden">Loading...</span>
         </Spinner>
     }

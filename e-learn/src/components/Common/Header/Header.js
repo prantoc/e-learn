@@ -38,7 +38,7 @@ const Header = () => {
                         <LinkContainer to="categories">
                             <Nav.Link>Categories</Nav.Link>
                         </LinkContainer>
-                        <LinkContainer to="/">
+                        <LinkContainer to="/FAQ">
                             <Nav.Link>FAQ</Nav.Link>
                         </LinkContainer>
                         <LinkContainer to="blog">
@@ -49,14 +49,13 @@ const Header = () => {
                     {
                         user
                             ?
-                            <Navbar.Text className='d-flex mx-auto'>
+                            <Navbar.Text className='d-flex' title={user.displayName}>
                                 <Dropdown>
                                     <Dropdown.Toggle className='border border-1 py-1' variant="outline-light" id="dropdown-basic">
                                         <Image roundedCircle style={{ height: '28px' }} src={user.photoURL ? user.photoURL : avatar} />
                                     </Dropdown.Toggle>
                                     <Dropdown.Menu className='position-absolute end-100 translate-middle-x'>
                                         <Dropdown.Item >{user?.displayName}</Dropdown.Item>
-                                        <Dropdown><Link to="/profile" data-rr-ui-dropdown-item="" className="dropdown-item" role="button" tabIndex="0">Profile</Link></Dropdown>
                                         <Dropdown.Item onClick={userLogout}>Logout</Dropdown.Item>
                                     </Dropdown.Menu>
                                 </Dropdown>

@@ -1,13 +1,17 @@
 import React, { useContext, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
 import { emailSent, error, success } from '../../../Toasts/Toasts';
 import isURL from 'validator/lib/isURL';
+import google from '../../../assets/imgs/google.png'
+import facebook from '../../../assets/imgs/facebook.png'
+import github from '../../../assets/imgs/github.png'
 const SignUp = () => {
-    const { emPasSignUp, updateUserData, userEmailVerify, logoutUser } = useContext(AuthContext);
+    const { emPasSignUp, updateUserData, userEmailVerify, logoutUser, signInByGoogle, signInByGithub } = useContext(AuthContext);
     const [accepted, setAccepted] = useState(false);
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
     const userSignup = e => {
         setLoading(true)
         e.preventDefault();
@@ -47,7 +51,26 @@ const SignUp = () => {
                 setLoading(false)
             });
     }
-
+    const githubSignIn = () => {
+        signInByGithub()
+            .then((result) => {
+                const user = result.user;
+                success(`Hi,${user.displayName}  You Logged in successfully`);
+                navigate('/')
+            }).catch((e) => {
+                error(e);
+            });
+    }
+    const googleSignIn = () => {
+        signInByGoogle()
+            .then((result) => {
+                const user = result.user;
+                success(`Hi,${user.displayName}  You Logged in successfully`);
+                navigate('/')
+            }).catch((e) => {
+                error(e);
+            });
+    }
     const handleAccepted = e => {
         setAccepted(e.target.checked);
     }
@@ -93,6 +116,12 @@ const SignUp = () => {
                         </button>
                     </form>
                     <div className="form-text text-center p-1">Have an account in E-Learn? <Link to="/login">Login</Link></div>
+                    <hr />
+                    <div className='d-flex justify-content-center mt-3'>
+                        <img className='m-4' role="button" onClick={googleSignIn} src={google} alt='Logo' width={30} />
+                        <img className='m-4' role="button" onClick={githubSignIn} src={github} alt='Logo' width={30} />
+                        <img className='m-4' role="button" onClick={googleSignIn} src={facebook} alt='Logo' width={30} />
+                    </div>
                 </Col>
             </Row>
         </Container>
