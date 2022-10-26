@@ -1,12 +1,11 @@
 import React, { useContext, useState } from 'react';
-import { Alert, Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
+import { error, success } from '../../../Toasts/Toasts';
 
 const Login = () => {
     const { userSignIn } = useContext(AuthContext);
-    const [successMgs, setSuccessMgs] = useState('');
-    const [errorMgs, setErrorMgs] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     let location = useLocation();
@@ -21,9 +20,7 @@ const Login = () => {
             .then((userCredential) => {
                 // Signed in 
                 const user = userCredential.user;
-                console.log(user);
-                setErrorMgs('');
-                setSuccessMgs(`Hi, You Logged in successfully ${user.displayName}`);
+                success(`Hi, You Logged in successfully ${user.displayName}`);
                 setLoading(false)
                 form.reset();
                 if (user.emailVerified) {
@@ -32,9 +29,9 @@ const Login = () => {
                     navigate('/verify-email')
                 }
             })
-            .catch((error) => {
-                const errorMessage = error.message;
-                setErrorMgs(errorMessage);
+            .catch((e) => {
+                const errorMessage = e.message;
+                error(errorMessage);
                 setLoading(false)
             })
             .finally(() => {
@@ -47,12 +44,6 @@ const Login = () => {
                 <Col md={4} sm={10} className='mx-auto border p-5 rounded' style={{ boxShadow: "rgb(204 225 255) -7px 13px 4px 1px" }}>
                     <form onSubmit={userLogin}>
                         <h1 className='text-center pb-4'>Login</h1>
-                        {successMgs && <Alert variant="success">
-                            {successMgs}
-                        </Alert>}
-                        {errorMgs && <Alert variant="danger">
-                            {errorMgs}
-                        </Alert>}
                         <div className="mb-4">
                             <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
                             <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name='email' required />

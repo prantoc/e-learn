@@ -1,12 +1,11 @@
 import React, { useContext, useState } from 'react';
-import { Alert, Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
 import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
-import { emailSent } from '../../../Toasts/Toasts';
+import { emailSent, error } from '../../../Toasts/Toasts';
 
 const VerifyEmail = () => {
     const [loading, setLoading] = useState(false);
     const { userEmailVerify, user } = useContext(AuthContext);
-    const [errorMgs, setErrorMgs] = useState('');
     const sendVerifyLink = () => {
         setLoading(true)
         userEmailVerify()
@@ -16,7 +15,7 @@ const VerifyEmail = () => {
             })
             .catch(e => {
                 const errorMessage = e.message;
-                setErrorMgs(errorMessage);
+                error(errorMessage);
                 setLoading(false)
             })
     }
@@ -28,9 +27,6 @@ const VerifyEmail = () => {
                         :
                         <div>
                             <h1 className='text-center pb-4'>Verify Your Email</h1>
-                            {errorMgs && <Alert variant="danger">
-                                {errorMgs}
-                            </Alert>}
                             <div className="mb-4 text-center">
                                 <label htmlFor="exampleInputEmail1" className="form-label">Please <b>Verify</b> your Email address</label>
                             </div>
