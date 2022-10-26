@@ -54,7 +54,7 @@ const Header = () => {
                                     <Dropdown.Toggle className='border border-1 py-1' variant="outline-light" id="dropdown-basic">
                                         <Image roundedCircle style={{ height: '28px' }} src={user.photoURL ? user.photoURL : avatar} />
                                     </Dropdown.Toggle>
-                                    <Dropdown.Menu className='position-absolute end-100 translate-middle-x'>
+                                    <Dropdown.Menu className='position-absolute end-100 translate-middle-x' style={{ zIndex: '9999' }}>
                                         <Dropdown.Item >{user?.displayName}</Dropdown.Item>
                                         <Dropdown.Item onClick={userLogout}>Logout</Dropdown.Item>
                                     </Dropdown.Menu>

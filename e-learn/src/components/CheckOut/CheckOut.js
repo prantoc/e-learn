@@ -69,7 +69,7 @@ const CheckOut = () => {
                                     :
 
                                     <Card.Title className='text-center' as="h1">
-                                        <h1 className='text-success'>PAID</h1>
+                                        <h1 className='text-success'>Your Payemnt Successfully Completed !</h1>
                                         <img className='img-fluid' src={paymentGif} alt="" />
                                     </Card.Title>
 

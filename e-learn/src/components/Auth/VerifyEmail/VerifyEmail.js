@@ -10,8 +10,8 @@ const VerifyEmail = () => {
         setLoading(true)
         userEmailVerify()
             .then(() => {
-                emailSent('Email verification link sent please check!');
                 setLoading(false)
+                emailSent('Email verification link sent please check!');
             })
             .catch(e => {
                 const errorMessage = e.message;
@@ -33,8 +33,8 @@ const VerifyEmail = () => {
                             <button onClick={sendVerifyLink} type="submit" className="btn btn-primary text-center col-12  rounded">
                                 {loading
                                     ?
-                                    <div class="spinner-border text-dark" role="status">
-                                        <span class="visually-hidden">Loading...</span>
+                                    <div className="spinner-border text-dark" role="status">
+                                        <span className="visually-hidden">Loading...</span>
                                     </div>
                                     :
                                     ' Send Verification Link'}
