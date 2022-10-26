@@ -9,16 +9,16 @@ import darkmode from '../../../assets/imgs/dark.png'
 import './Header.css'
 import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
 import avatar from '../../../assets/imgs/man.png'
+import { error, success } from '../../../Toasts/Toasts';
 const Header = () => {
     const [mode, setMode] = useState(false)
     const { user, logoutUser } = useContext(AuthContext);
-    console.log(user);
     const userLogout = () => {
         logoutUser()
             .then(() => {
-                console.log(' Sign-out successful');
-            }).catch((error) => {
-                console.error(error);
+                success(' Sign-out successful');
+            }).catch((e) => {
+                error(e);
             });
     }
     return (
@@ -38,7 +38,7 @@ const Header = () => {
                         <LinkContainer to="categories">
                             <Nav.Link>Categories</Nav.Link>
                         </LinkContainer>
-                        <LinkContainer to="/FAQ">
+                        <LinkContainer to="/faq">
                             <Nav.Link>FAQ</Nav.Link>
                         </LinkContainer>
                         <LinkContainer to="blog">

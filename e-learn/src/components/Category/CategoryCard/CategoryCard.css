@@ -2,6 +2,10 @@
     height: 180px !important;
 }
 
+.categories-card:hover .card-title {
+    color: #000 !important;
+}
+
 .categories-card:hover {
     transition: all 0.2s ease-out;
     box-shadow: 0px 4px 8px rgba(38, 38, 38, 0.2);
