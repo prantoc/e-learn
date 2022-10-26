@@ -4,16 +4,20 @@ import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
 import { emailSent } from '../../../Toasts/Toasts';
 
 const VerifyEmail = () => {
+    const [loading, setLoading] = useState(false);
     const { userEmailVerify, user } = useContext(AuthContext);
     const [errorMgs, setErrorMgs] = useState('');
     const sendVerifyLink = () => {
+        setLoading(true)
         userEmailVerify()
             .then(() => {
                 emailSent('Email verification link sent please check!');
+                setLoading(false)
             })
             .catch(e => {
                 const errorMessage = e.message;
                 setErrorMgs(errorMessage);
+                setLoading(false)
             })
     }
     return (
@@ -31,7 +35,13 @@ const VerifyEmail = () => {
                                 <label htmlFor="exampleInputEmail1" className="form-label">Please <b>Verify</b> your Email address</label>
                             </div>
                             <button onClick={sendVerifyLink} type="submit" className="btn btn-primary text-center col-12  rounded">
-                                Send Verify Link
+                                {loading
+                                    ?
+                                    <div class="spinner-border text-dark" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                    :
+                                    ' Send Verification Link'}
                             </button>
                         </div>
                     }

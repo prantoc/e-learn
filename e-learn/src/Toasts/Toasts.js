@@ -6,6 +6,12 @@ export const success = message => {
         position: 'top-center',
     });
 }
+export const error = message => {
+    toast.error(message, {
+        duration: 4000,
+        position: 'top-center',
+    });
+}
 export const emailSent = message => {
     toast(message, {
         duration: 8000,

@@ -1,15 +1,15 @@
 import React, { useContext, useState } from 'react';
-import { Alert, Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
-import { emailSent, success } from '../../../Toasts/Toasts';
-
+import { emailSent, error, success } from '../../../Toasts/Toasts';
+import isURL from 'validator/lib/isURL';
 const SignUp = () => {
     const { emPasSignUp, updateUserData, userEmailVerify, logoutUser } = useContext(AuthContext);
-    // const [successMgs, setSuccessMgs] = useState('');
-    const [errorMgs, setErrorMgs] = useState('');
     const [accepted, setAccepted] = useState(false);
+    const [loading, setLoading] = useState(false);
     const userSignup = e => {
+        setLoading(true)
         e.preventDefault();
         const form = e.target;
         const name = form.name.value;
@@ -20,27 +20,31 @@ const SignUp = () => {
 
         const isValidEmail = /\S+@\S+\.\S+/;
         if (!isValidEmail.test(email)) {
-            return setErrorMgs('Please Provide a Valid Email Address')
+            return error('Please Provide a Valid Email Address')
+        }
+        if (!isURL(photo)) {
+            return error("Your Photo URL isn't valid!");
         }
         if (password.length < 6) {
-            return setErrorMgs("Your password should be at least 6 charachters!");
+            return error("Your password should be at least 6 charachters!");
         }
         if (password !== confirmPassword) {
-            return setErrorMgs("password and confirm password doesn't match!");
+            return error("password and confirm password doesn't match!");
         }
         emPasSignUp(email, password)
             .then(() => {
                 updateUserData(name, photo)
                 userEmailVerify()
-                setErrorMgs('');
                 emailSent('Email verification link sent please check!');
                 success('successfully created an account')
                 logoutUser();
                 form.reset();
+                setLoading(false)
             })
             .catch((error) => {
                 const errorMessage = error.message;
-                setErrorMgs(errorMessage);
+                error(errorMessage);
+                setLoading(false)
             });
     }
 
@@ -53,13 +57,7 @@ const SignUp = () => {
             <Row className='my-5'>
                 <Col md={4} sm={10} className='mx-auto border p-5 rounded' style={{ boxShadow: "rgb(204 225 255) -7px 13px 4px 1px" }}>
                     <form onSubmit={userSignup}>
-                        <h1 className='text-center pb-4'>SignUp</h1>
-                        {/* {successMgs && <Alert variant="success">
-                            {successMgs}
-                        </Alert>} */}
-                        {errorMgs && <Alert variant="danger">
-                            {errorMgs}
-                        </Alert>}
+                        <h1 className='text-center pb-2'>SignUp</h1>
                         <div className="mb-3">
                             <label htmlFor="exampleInputName" className="form-label">Full name</label>
                             <input type="text" className="form-control" id="exampleInputName" aria-describedby="nameHelp" name='name' required placeholder='Enter your full name' />
@@ -85,7 +83,13 @@ const SignUp = () => {
                             <label className="form-check-label" htmlFor="exampleCheck1">Accept Our Terms & Conditions</label>
                         </div>
                         <button disabled={!accepted} type="submit" className="btn btn-danger text-center col-12  rounded">
-                            SignUp
+                            {loading
+                                ?
+                                <div class="spinner-border text-dark" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                :
+                                'SignUp'}
                         </button>
                     </form>
                     <div className="form-text text-center p-1">Have an account in E-Learn? <Link to="/login">Login</Link></div>

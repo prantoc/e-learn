@@ -6,17 +6,21 @@ const ResetPassword = () => {
     const { userPassReset } = useContext(AuthContext);
     const [successMgs, setSuccessMgs] = useState('');
     const [errorMgs, setErrorMgs] = useState('');
+    const [loading, setLoading] = useState(false);
     const resetPassword = e => {
+        setLoading(true)
         e.preventDefault();
         const form = e.target;
         const email = form.email.value;
         userPassReset(email)
             .then(() => {
                 setSuccessMgs('Password reset email sent!')
+                setLoading(false)
             })
             .catch((error) => {
                 const errorMessage = error.message;
                 setErrorMgs(errorMessage)
+                setLoading(false)
             });
     }
     return (
@@ -36,7 +40,13 @@ const ResetPassword = () => {
                             <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name='email' required />
                         </div>
                         <button type="submit" className="btn btn-danger text-center col-12  rounded">
-                            Reset Password
+                            {loading
+                                ?
+                                <div class="spinner-border text-dark" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                :
+                                ' Reset Password'}
                         </button>
                     </form>
                 </Col>

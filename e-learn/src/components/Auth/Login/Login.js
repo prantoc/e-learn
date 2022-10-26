@@ -4,13 +4,15 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
 
 const Login = () => {
-    const { userSignIn, setLoading } = useContext(AuthContext);
+    const { userSignIn } = useContext(AuthContext);
     const [successMgs, setSuccessMgs] = useState('');
     const [errorMgs, setErrorMgs] = useState('');
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     let location = useLocation();
     let from = location.state?.from?.pathname || "/";
     const userLogin = e => {
+        setLoading(true)
         e.preventDefault();
         const form = e.target;
         const email = form.email.value;
@@ -22,6 +24,7 @@ const Login = () => {
                 console.log(user);
                 setErrorMgs('');
                 setSuccessMgs(`Hi, You Logged in successfully ${user.displayName}`);
+                setLoading(false)
                 form.reset();
                 if (user.emailVerified) {
                     navigate(from, { replace: true });
@@ -32,6 +35,7 @@ const Login = () => {
             .catch((error) => {
                 const errorMessage = error.message;
                 setErrorMgs(errorMessage);
+                setLoading(false)
             })
             .finally(() => {
                 setLoading(false)
@@ -59,7 +63,14 @@ const Login = () => {
                             <label className="form-check-label" htmlFor="exampleCheck1"><Link to="/reset-password">Forgot Password?</Link></label>
                         </div>
                         <button type="submit" className="btn btn-danger text-center col-12  rounded">
-                            Login
+
+                            {loading
+                                ?
+                                <div class="spinner-border text-dark" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                :
+                                'Login'}
                         </button>
                     </form>
                     <div className="form-text text-center p-1">New to E-Learn? <Link to="/signup">Create new Acoount</Link></div>
