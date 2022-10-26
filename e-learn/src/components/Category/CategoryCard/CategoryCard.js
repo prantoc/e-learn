@@ -8,8 +8,8 @@ const CategoryCard = ({ course }) => {
     return (
         <>
             <Col md={4} className="animate__animated animate__pulse">
-                <Link to={`/course/${_id}`} className='nav-link p-3'>
-                    <Card className='shadow bg-body rounded border-0'>
+                <Link to={`/category/${_id}`} className='nav-link p-3'>
+                    <Card className='shadow bg-body rounded border-0 categories-card'>
                         <Card.Img variant="top" src={picture} className="img-fluid img" />
                         <Card.Body>
                             <Card.Title className='text-secondary'>{course_name}</Card.Title>
@@ -23,7 +23,7 @@ const CategoryCard = ({ course }) => {
                                 }
                             </Card.Text>
                             <Card.Text className='text-danger fw-bold' >
-                                {price}
+                                ${price}
                             </Card.Text>
                         </Card.Body>
                     </Card>

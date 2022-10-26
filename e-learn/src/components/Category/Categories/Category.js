@@ -18,7 +18,6 @@ const Category = () => {
                 </Col>
                 <Col md={3} sm={12}>
                     <Sidebar courses={courses}></Sidebar>
-
                 </Col>
 
             </Row>

@@ -10,7 +10,7 @@ const Sidebar = ({ courses }) => {
 
                 {
                     courses.map(c =>
-                        <Link key={c._id} to={`/course/${c._id}`} className="nav-link">
+                        <Link key={c._id} to={`/category/${c._id}`} className="nav-link">
                             <ListGroup variant="flush">
                                 <ListGroup.Item>{c.course_name}</ListGroup.Item>
                             </ListGroup>
