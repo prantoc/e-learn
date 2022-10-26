@@ -23,10 +23,10 @@ const Header = () => {
                         <LinkContainer to="/">
                             <Nav.Link>Home</Nav.Link>
                         </LinkContainer>
-                        <LinkContainer to="/categories">
+                        <LinkContainer to="categories">
                             <Nav.Link>Categories</Nav.Link>
                         </LinkContainer>
-                        <LinkContainer to="statistics">
+                        <LinkContainer to="/">
                             <Nav.Link>FAQ</Nav.Link>
                         </LinkContainer>
                         <LinkContainer to="blog">
@@ -46,7 +46,7 @@ const Header = () => {
                             <Link className="nav-link">Login</Link>
                         </LinkContainer>
                         <LinkContainer to="/signup">
-                            <Link className="nav-link btn btn-danger text-white">SignUp</Link>
+                            <Link className="nav-link">SignUp</Link>
                         </LinkContainer>
                         <button onClick={() => setMode(!mode)} className='btn btn-light'><img src={mode === true ? darkmode : lightmode} alt='Light mode' width={30} /></button>
                     </Nav>

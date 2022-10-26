@@ -1,5 +1,5 @@
 import React from 'react';
-import { Badge, Card, Col } from 'react-bootstrap';
+import { Card, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import "./CategoryCard.css"
 import 'animate.css';
