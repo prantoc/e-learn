@@ -58,7 +58,7 @@ const SignUp = () => {
                 success(`Hi,${user.displayName}  You Logged in successfully`);
                 navigate('/')
             }).catch((e) => {
-                error(e);
+                console.error(e);
             });
     }
     const googleSignIn = () => {
@@ -68,7 +68,7 @@ const SignUp = () => {
                 success(`Hi,${user.displayName}  You Logged in successfully`);
                 navigate('/')
             }).catch((e) => {
-                error(e);
+                console.error(e);
             });
     }
     const handleAccepted = e => {
