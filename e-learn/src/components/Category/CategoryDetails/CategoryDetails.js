@@ -25,8 +25,8 @@ const CategoryDetails = () => {
     return (
         <Container>
             <Row>
-                <Col md={12} className="my-5" ref={ref} options={options} x={.5} y={.5} scale={0.8}>
-                    <Card className='shadow bg-body rounded border-0 text-secondary'>
+                <Col md={12} className="my-5" >
+                    <Card className='shadow bg-body rounded border-0 text-secondary' ref={ref} options={options} x={.5} y={.5} scale={1}>
                         <Card.Header className='border-0 bg-light' as="h3">{course_name}</Card.Header>
                         <Card.Body>
                             <Row>
@@ -47,7 +47,7 @@ const CategoryDetails = () => {
                                     </Card>
 
                                 </Col>
-                                <Col md={3} className="border-start  text-center">
+                                <Col ref={ref} md={3} className="border-start  text-center">
                                     <h2 className='text-danger fw-bold'>${price}</h2>
                                     <p className='fw-bold my-3'>Course Duration: <span className='text-dark'>{course_duration} months</span></p>
                                     <p className='fw-bold my-3'>Course Will Start: <span className='text-dark'> {course_start}</span></p>

@@ -7,14 +7,10 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: '#E4E4E4'
     },
-    section: {
-        margin: 10,
-        padding: 10,
-        flexGrow: 1
-    }
+    section: { color: 'white', textAlign: 'center', margin: 30 }
 });
 const PDF = () => {
-    <Document>
+    <Document style={{ width: 500, height: 500, background: 'blue' }}>
         <Page size="A4" style={styles.page}>
             <View style={styles.section}>
                 <Text>Section #1</Text>
