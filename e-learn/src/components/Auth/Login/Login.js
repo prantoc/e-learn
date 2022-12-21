@@ -58,7 +58,7 @@ const Login = () => {
                 success(`Hi,${user.displayName}  You Logged in successfully`);
                 navigate('/')
             }).catch((e) => {
-                error(e);
+                console.error(e);
             });
     }
 
