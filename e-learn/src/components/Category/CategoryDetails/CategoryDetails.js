@@ -1,12 +1,21 @@
 import React from 'react';
 import { Button, Card, Col, Container, Row } from 'react-bootstrap';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useNavigation } from 'react-router-dom';
 import { FaCartPlus, FaCloudDownloadAlt } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import Pdf from "react-to-pdf";
 const ref = React.createRef();
 const CategoryDetails = () => {
     const cDetails = useLoaderData(); //cDetails = category details
+    const navigation = useNavigation()
+    if (navigation.state === "loading") {
+        return <div className="d-flex justify-content-center">
+            <div className="spinner-border" role="status">
+                <span className="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    }
+
     const { _id, price, course_name, course_duration, description, topics, picture, course_start } = cDetails;
     const options = {
         orientation: 'landscape',
